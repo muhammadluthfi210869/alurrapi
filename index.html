@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B7A4B">
+<title>Google Sheets Custom untuk Usaha Dagang</title>
+<meta name="description" content="Bukan template massal. Google Sheets yang dibuat pas untuk caramu berjualan. Kirim foto catatanmu, lihat contohnya gratis, bayar kalau cocok.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bukan template massal. Google Sheets yang pas untuk caramu berjualan.">
+<meta property="og:description" content="Kirim foto catatanmu, lihat contoh tampilannya gratis. Datamu dipindahkan dalam 24 jam.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B7A4B'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Satu aksi utama: kirim foto catatan via WhatsApp, lihat contoh gratis, bayar kalau cocok.
+   Hero dua kolom di layar lebar (teks | contoh Sheets per niche). Bagian selang-seling putih dan hijau muda. */
+:root{
+  --bg:#FFFFFF; --soft:#F2F8F4; --ink:#12211A; --ink-2:#45554C;
+  --hijau:#0B7A4B; --hijau-tua:#085C38; --hijau-muda:#DCF1E5; --garis:#D5E3DA;
+  --kuning:#FFF1BF; --kuning-ink:#6B4E00; --merah:#B42318; --merah-muda:#FDE3E0;
+  --font-display:"Plus Jakarta Sans","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.55 var(--font-body);color-scheme:light}
+h1,h2,h3{font-family:var(--font-display);margin:0;letter-spacing:-.02em;line-height:1.12;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{width:min(1080px,100% - 32px);margin-inline:auto}
+[hidden]{display:none!important}
+
+/* tombol */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:12px;border:0;background:var(--hijau);color:#fff;font:700 1.05rem var(--font-body);text-decoration:none;cursor:pointer;transition:background .15s,transform .15s;text-align:center}
+.btn:hover{background:var(--hijau-tua)}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.putih{background:#fff;color:var(--hijau-tua)}
+.btn.putih:hover{background:var(--hijau-muda)}
+.btn.kecil{min-height:42px;padding:0 16px;font-size:.95rem}
+.btn.garis{background:#fff;color:var(--hijau-tua);border:2px solid var(--hijau)}
+.btn.garis:hover{background:var(--hijau-muda)}
+.link{font-weight:700;color:var(--hijau-tua);text-underline-offset:4px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{font:800 1.2rem var(--font-display);text-decoration:none;letter-spacing:-.03em}
+.brand span{color:var(--hijau)}
+
+/* hero */
+.hero{display:grid;gap:32px;padding:20px 0 56px}
+@media(min-width:900px){.hero{grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;padding:40px 0 72px}}
+h1{font-size:clamp(2rem,6.2vw,3.1rem);font-weight:800}
+.sub{margin-top:16px;font-size:1.12rem;color:var(--ink-2);max-width:34rem}
+.aksi{margin-top:26px;display:grid;gap:12px;justify-items:start}
+.aksi .btn{width:100%;max-width:26rem}
+.micro{font-size:.92rem;color:var(--ink-2)}
+.jaminan{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;max-width:30rem}
+.jaminan li{display:flex;gap:8px;align-items:flex-start;font-weight:600;font-size:.95rem;line-height:1.3}
+.jaminan svg{flex:none;width:20px;height:20px;margin-top:1px;color:var(--hijau)}
+
+/* pilihan niche + contoh sheet */
+.niche-label{font-size:.82rem;color:var(--ink-2);font-weight:600;margin-bottom:6px}
+.niche{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px}
+.niche button{flex:none;appearance:none;border:1px solid var(--garis);background:#fff;color:var(--ink);font:600 .88rem var(--font-body);padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.niche button:hover{border-color:var(--hijau)}
+@media(min-width:900px){.niche{flex-wrap:wrap;overflow:visible}}
+.niche button[aria-pressed="true"]{background:var(--hijau);border-color:var(--hijau);color:#fff}
+.mock{border:1px solid var(--garis);border-radius:14px;background:#fff;box-shadow:0 14px 36px rgba(18,33,26,.12);overflow:hidden}
+.mock-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#F6F8F7;border-bottom:1px solid var(--garis);font-size:.8rem;color:var(--ink-2);font-weight:600}
+.mock-bar i{width:9px;height:9px;border-radius:50%;background:#C9D6CE;display:block}
+.mock-info{padding:8px 14px;background:var(--kuning);color:var(--kuning-ink);font-size:.82rem;font-weight:600}
+.mock-tabs{display:flex;gap:2px;padding:8px 10px 0;background:#F6F8F7;border-bottom:1px solid var(--garis);overflow-x:auto}
+.mock-tabs button{appearance:none;border:0;background:none;font:600 .82rem var(--font-body);color:var(--ink-2);padding:7px 13px;border-radius:8px 8px 0 0;white-space:nowrap;cursor:pointer}
+.mock-tabs button:hover{color:var(--hijau-tua)}
+.mock-tabs button[aria-selected="true"]{background:#fff;color:var(--hijau-tua);box-shadow:inset 0 2px 0 var(--hijau)}
+.mock-body{display:grid;min-height:262px;align-content:start}
+.mock-panel{grid-area:1/1;visibility:hidden}
+.mock-panel.on{visibility:visible}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px}
+.kpi div{border-radius:10px;padding:10px;font-size:.78rem;font-weight:600;line-height:1.25}
+.kpi b{display:block;font:800 1.5rem var(--font-display);line-height:1.1;margin-bottom:2px}
+.kpi .w{background:var(--kuning);color:var(--kuning-ink)}
+.kpi .b{background:var(--merah-muda);color:var(--merah)}
+.kpi .g{background:var(--hijau-muda);color:var(--hijau-tua)}
+.hari{padding:0 14px 14px}
+.hari h4{margin:0 0 8px;font:700 .8rem var(--font-body);color:var(--ink-2)}
+.hari ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.hari li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--garis);border-radius:10px;font-size:.88rem;font-weight:600;line-height:1.25}
+table.t{width:100%;border-collapse:collapse;font-size:.9rem}
+.t th,.t td{text-align:left;padding:9px 10px;border-top:1px solid var(--garis)}
+.t th:first-child,.t td:first-child{padding-left:14px}
+.t th:last-child,.t td:last-child{padding-right:14px}
+.t th{font-size:.76rem;color:var(--ink-2);background:#F6F8F7}
+.t td:nth-child(2),.t td:nth-child(3){font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-weight:700;font-size:.78rem;white-space:nowrap}
+.tag.ok{background:var(--hijau-muda);color:var(--hijau-tua)}
+.tag.warn{background:var(--kuning);color:var(--kuning-ink)}
+.tag.bad{background:var(--merah-muda);color:var(--merah)}
+.mock-cap{padding:10px 14px;font-size:.78rem;color:var(--ink-2);border-top:1px solid var(--garis)}
+
+.hero>*,.isi>*,.sblm>*,.banding>*,.paket>*,.langkah>*{min-width:0}
+
+/* section */
+.blok{padding:60px 0}
+.blok.soft{background:var(--soft)}
+.blok h2{font-size:clamp(1.55rem,4.4vw,2.2rem);font-weight:800}
+.blok .lead{margin-top:10px;color:var(--ink-2);max-width:36rem}
+
+/* perbandingan */
+.banding{display:grid;gap:14px;margin-top:28px}
+@media(min-width:800px){.banding{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:799px){.bnd.kita{order:-1}}
+.bnd{background:#fff;border:1px solid var(--garis);border-radius:16px;padding:20px}
+.bnd.kita{border:2px solid var(--hijau)}
+.bnd h3{font-size:1.1rem;margin-bottom:14px}
+.bnd ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.bnd li{display:flex;gap:10px;line-height:1.35}
+.bnd li::before{flex:none;width:18px;font-weight:800}
+.bnd li.x::before{content:"\2715";color:var(--merah)}
+.bnd li.v::before{content:"\2713";color:var(--hijau)}
+.bnd:not(.kita) li{color:var(--ink-2)}
+
+/* kolom putih */
+.isi{display:grid;gap:12px;margin-top:28px}
+@media(min-width:760px){.isi{grid-template-columns:1fr auto 1fr;align-items:center;gap:18px}}
+.isi .panel{border:1px solid var(--garis);border-radius:16px;padding:18px;display:grid;gap:11px;background:#fff}
+.isi .panel.manual{border:2px solid var(--hijau)}
+.isi .panel.otomatis{background:#EBF0ED}
+.isi h3{font-size:1.02rem}
+.fld{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.92rem}
+.fld>span{color:var(--ink-2);font-weight:600}
+.fld .in{border:1.5px solid var(--hijau);background:#fff;border-radius:8px;padding:7px 11px;min-width:9.5rem;font-weight:600}
+.fld b{font-weight:800}
+.panah{display:grid;place-items:center;color:var(--hijau);font:800 1.7rem var(--font-display);line-height:1}
+.panah::before{content:"\2193"}
+@media(min-width:760px){.panah::before{content:"\2192"}}
+
+/* sebelum sesudah */
+.sblm{display:grid;gap:14px;margin-top:28px}
+@media(min-width:760px){.sblm{grid-template-columns:1fr auto 1fr;align-items:center;gap:18px}}
+.kacau{display:grid;gap:10px;padding:18px;border:1px dashed #B8C7BE;border-radius:16px;background:#fff}
+.kacau h3{font-size:1rem;color:var(--ink-2)}
+.gel{max-width:19rem;background:#E9EEEB;border-radius:14px 14px 14px 4px;padding:9px 13px;font-size:.92rem}
+.catat{background:var(--kuning);color:var(--kuning-ink);border-radius:6px;padding:9px 12px;font-size:.92rem;font-style:italic;max-width:19rem}
+.xl{background:#fff;border:1px solid var(--garis);border-radius:8px;font-size:.84rem;overflow:hidden;max-width:19rem}
+.xl div{display:grid;grid-template-columns:1fr 1fr 1fr}
+.xl span{padding:6px 8px;border:1px solid var(--garis);margin:-.5px 0 0 -.5px}
+.xl .salah{background:var(--merah-muda);color:var(--merah)}
+.rapi h3{font-size:1rem;padding:12px 14px 4px;color:var(--hijau-tua)}
+
+/* cara kerja */
+.langkah{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px;counter-reset:l}
+@media(min-width:760px){.langkah{grid-template-columns:repeat(3,1fr)}}
+.langkah li{counter-increment:l;background:#fff;border:1px solid var(--garis);border-radius:16px;padding:20px}
+.langkah li::before{content:counter(l);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--hijau);color:#fff;font:800 1rem var(--font-display);margin-bottom:12px}
+.langkah h3{font-size:1.1rem}
+.langkah p{margin-top:6px;color:var(--ink-2)}
+
+/* paket */
+.paket{display:grid;gap:16px;margin-top:28px}
+@media(min-width:760px){.paket{grid-template-columns:1fr 1fr;max-width:840px}}
+.pkt{background:#fff;border:1px solid var(--garis);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px;position:relative}
+.pkt.utama{border:2px solid var(--hijau)}
+@media(max-width:759px){.pkt.utama{order:-1}}
+.pkt .lencana{position:absolute;top:-13px;left:20px;background:var(--hijau);color:#fff;font:700 .8rem var(--font-body);padding:4px 12px;border-radius:999px}
+.pkt h3{font-size:1.3rem}
+.pkt .harga{font:800 1.8rem/1.1 var(--font-display);letter-spacing:-.02em}
+.pkt .harga small{font:500 .9rem var(--font-body);color:var(--ink-2);letter-spacing:0}
+.pkt .harga.tanya{font:700 1.05rem var(--font-body);color:var(--ink-2)}
+.pkt ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.pkt li{display:flex;gap:9px;align-items:flex-start;line-height:1.35}
+.pkt li::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B7A4B' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/contain no-repeat}
+.pkt .btn{margin-top:auto}
+.catatan{margin-top:16px;color:var(--ink-2);font-size:.95rem}
+
+/* faq */
+details{border-bottom:1px solid var(--garis)}
+details summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:14px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";font:600 1.4rem var(--font-body);line-height:1;color:var(--hijau)}
+details[open] summary::after{content:"\2013"}
+details p{padding:0 0 16px;color:var(--ink-2);max-width:40rem}
+.faq{margin-top:20px;max-width:46rem;border-top:1px solid var(--garis)}
+
+.penutup{background:var(--hijau);color:#fff;text-align:center;padding:64px 0}
+.penutup h2{font-size:clamp(1.6rem,4.6vw,2.3rem);font-weight:800;max-width:30rem;margin-inline:auto}
+.penutup p{margin:12px auto 0;opacity:.92;max-width:30rem}
+.penutup .btn{margin-top:24px;width:min(100%,26rem)}
+footer{padding:22px 0 100px;color:var(--ink-2);font-size:.88rem}
+
+/* bar tempel di HP */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.97);border-top:1px solid var(--garis);display:none}
+.sticky.show{display:block}
+.sticky .btn{width:100%}
+@media(min-width:900px){.sticky.show{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="./" aria-label="alurrapi.id">alurrapi<span>.id</span></a>
+  <a class="btn kecil" href="#" data-wa="header">Contoh gratis</a>
+</header>
+
+<main>
+
+  <!-- 1. HERO: pembeda, janji, satu aksi, contoh sheet per niche -->
+  <div class="wrap hero" id="hero">
+    <div>
+      <h1>Bukan template massal. Google Sheets yang dibuat pas untuk caramu berjualan.</h1>
+      <p class="sub">Kamu isi sedikit, hasilnya langsung bilang apa yang harus dikerjakan hari ini. Datamu kami pindahkan, siap dipakai dalam 24 jam.</p>
+      <div class="aksi">
+        <a class="btn" id="cta-hero" href="#" data-wa="hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Kirim foto catatanmu via WhatsApp</a>
+        <p class="micro">Kami balas dengan contoh tampilannya. Gratis, bayar hanya kalau cocok.</p>
+        <a class="link" href="#" data-wa="hero-konsul" data-msg="konsul">Lebih suka ngobrol dulu? Konsultasi 15 menit</a>
+      </div>
+      <ul class="jaminan" aria-label="Jaminan">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Lihat contohnya dulu</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Jadi dalam 24 jam</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>4x penyesuaian sampai pas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sekali bayar, tanpa langganan</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="niche-label">Lihat contoh untuk usahamu:</p>
+      <div class="niche" id="niche" role="group" aria-label="Pilih jenis usaha"></div>
+      <div class="mock" role="group" aria-label="Contoh tampilan Google Sheets. Klik tab untuk melihat bagian lain.">
+        <div class="mock-bar"><i></i><i></i><i></i><span style="margin-left:6px" id="mock-title">Sistem Toko · Google Sheets</span></div>
+        <div class="mock-info" id="mock-info" hidden></div>
+        <div class="mock-tabs" role="tablist" aria-label="Tab contoh">
+          <button type="button" role="tab" aria-selected="true" data-tab="ringkasan">Ringkasan</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="stok">Stok</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="bon">Bon</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="order">Order</button>
+        </div>
+        <div class="mock-body">
+          <div class="mock-panel on" role="tabpanel" data-panel="ringkasan"></div>
+          <div class="mock-panel" role="tabpanel" data-panel="stok" aria-hidden="true"></div>
+          <div class="mock-panel" role="tabpanel" data-panel="bon" aria-hidden="true"></div>
+          <div class="mock-panel" role="tabpanel" data-panel="order" aria-hidden="true"></div>
+        </div>
+        <p class="mock-cap">Contoh tampilan dengan data karangan.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PERBANDINGAN: pembeda dari template umum dan aplikasi rumit -->
+  <section class="blok soft" id="beda">
+    <div class="wrap">
+      <h2>Bukan template massal. Bukan aplikasi yang rumit.</h2>
+      <div class="banding">
+        <div class="bnd">
+          <h3>Template umum</h3>
+          <ul>
+            <li class="x">Umum, kamu yang menyesuaikan</li>
+            <li class="x">Data lama kamu ketik ulang</li>
+            <li class="x">Bantuan terbatas kalau macet</li>
+            <li class="v">Murah</li>
+          </ul>
+        </div>
+        <div class="bnd">
+          <h3>Aplikasi yang rumit</h3>
+          <ul>
+            <li class="x">Kamu yang mengikuti aturan aplikasi</li>
+            <li class="x">Menu banyak, admin perlu belajar lama</li>
+            <li class="x">Biasanya bayar bulanan</li>
+            <li class="v">Fitur lengkap</li>
+          </ul>
+        </div>
+        <div class="bnd kita">
+          <h3>alurrapi</h3>
+          <ul>
+            <li class="v">Dibuat sesuai alur usahamu</li>
+            <li class="v">Datamu kami pindahkan dalam 24 jam</li>
+            <li class="v">Admin cukup isi kolom putih</li>
+            <li class="v">Sekali bayar, ada penyesuaian sampai pas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. KOLOM PUTIH: input sedikit, hasil banyak -->
+  <section class="blok" id="isi">
+    <div class="wrap">
+      <h2>Kamu cuma isi kolom putih. Sisanya otomatis.</h2>
+      <p class="lead">Satu baris diisi, stok, bon, dan ringkasan ikut berubah.</p>
+      <div class="isi">
+        <div class="panel manual">
+          <h3>Kamu isi</h3>
+          <div class="fld"><span>Pelanggan</span><span class="in">Toko Maju ▾</span></div>
+          <div class="fld"><span>Barang</span><span class="in">Nugget 1 kg ▾</span></div>
+          <div class="fld"><span>Jumlah</span><span class="in">10</span></div>
+          <div class="fld"><span>DP</span><span class="in">Rp500.000</span></div>
+        </div>
+        <div class="panah" aria-hidden="true"></div>
+        <div class="panel otomatis">
+          <h3>Muncul sendiri</h3>
+          <div class="fld"><span>Total</span><b>Rp1.250.000</b></div>
+          <div class="fld"><span>Sisa bon</span><b>Rp750.000</b></div>
+          <div class="fld"><span>Status</span><span class="tag warn">Tempo</span></div>
+          <div class="fld"><span>Stok nugget</span><span class="tag warn">Tinggal 6 · Menipis</span></div>
+          <div class="fld"><span>Menagih</span><span class="tag ok">Tombol Tagih WA</span></div>
+        </div>
+      </div>
+      <p class="mock-cap" style="padding:12px 0 0;border:0">Contoh dengan data karangan.</p>
+    </div>
+  </section>
+
+  <!-- 4. SEBELUM / SESUDAH: pindah data 24 jam -->
+  <section class="blok soft" id="pindah">
+    <div class="wrap">
+      <h2>Catatan berantakanmu jadi Sheets siap pakai dalam 24 jam.</h2>
+      <p class="lead">Kirim apa adanya: foto buku, chat, atau Excel. Kamu tidak perlu mengetik ulang.</p>
+      <div class="sblm">
+        <div class="kacau">
+          <h3>Catatanmu sekarang</h3>
+          <div class="gel">Pak Hadi blm bayar yg kmrn ya, 2,4jt</div>
+          <div class="catat">semen sisa? cek gudang</div>
+          <div class="xl" aria-label="Contoh Excel dengan nama barang tidak seragam">
+            <div><span>nugget 1kg</span><span class="salah">Nugget 1 KG</span><span>nugget1kg</span></div>
+          </div>
+        </div>
+        <div class="panah" aria-hidden="true"></div>
+        <div class="mock rapi">
+          <h3>Setelah 24 jam</h3>
+          <table class="t">
+            <thead><tr><th>Barang</th><th>Stok</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Nugget 1 kg</td><td>6</td><td><span class="tag warn">Menipis</span></td></tr>
+              <tr><td>Semen 50 kg</td><td>0</td><td><span class="tag bad">Habis</span></td></tr>
+              <tr><td>Pak Hadi · bon</td><td>2.400.000</td><td><span class="tag bad">Lewat</span></td></tr>
+            </tbody>
+          </table>
+          <p class="mock-cap">Contoh dengan data karangan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CARA KERJA -->
+  <section class="blok" id="cara">
+    <div class="wrap">
+      <h2>Cara kerjanya</h2>
+      <ol class="langkah">
+        <li><h3>Kirim foto catatanmu</h3><p>Lewat WhatsApp. Foto buku, chat, atau Excel apa adanya.</p></li>
+        <li><h3>Lihat contohnya</h3><p>Kami balas dengan contoh tampilan untuk usahamu. Cocok baru lanjut.</p></li>
+        <li><h3>Datamu dipindahkan</h3><p>Jadi dalam 24 jam, lalu 4x penyesuaian sampai pas.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. PILIH CARA MULAI (harga dari CONFIG; kosong = "Tanya harga lewat WhatsApp") -->
+  <section class="blok soft" id="paket">
+    <div class="wrap">
+      <h2>Pilih cara mulainya</h2>
+      <div class="paket">
+        <div class="pkt">
+          <h3>Isi sendiri</h3>
+          <p class="harga" data-harga="diy"></p>
+          <ul>
+            <li>File Google Sheets siap pakai</li>
+            <li>Ada di akun Google-mu, kamu pemiliknya</li>
+            <li>Datanya kamu pindahkan sendiri</li>
+          </ul>
+          <a class="btn garis" href="#" data-paket="diy">Pesan paket ini</a>
+        </div>
+        <div class="pkt utama">
+          <span class="lencana">Paling lengkap</span>
+          <h3>Kami bereskan</h3>
+          <p class="harga" data-harga="done"></p>
+          <ul>
+            <li>Contoh tampilan dulu, bayar kalau cocok</li>
+            <li>Datamu kami pindahkan, jadi dalam 24 jam</li>
+            <li>4x penyesuaian sampai pas</li>
+            <li>Rumus bermasalah diperbaiki gratis</li>
+          </ul>
+          <a class="btn" href="#" data-paket="done">Mulai dengan contoh gratis</a>
+        </div>
+      </div>
+      <p class="catatan">Mulai dari isi sendiri, bisa naik ke paket kami bereskan dengan membayar selisihnya.</p>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="blok" id="faq">
+    <div class="wrap">
+      <h2>Pertanyaan yang sering muncul</h2>
+      <div class="faq">
+        <details><summary>Betulkah contoh tampilannya gratis?</summary><p>Ya. Kirim foto catatan atau Excel-mu lewat WhatsApp, kami balas dengan contoh tampilan untuk usahamu. Tanpa kewajiban beli. Karena dikerjakan satu per satu, kalau sedang antre kami kabari waktunya.</p></details>
+        <details><summary>Berapa biayanya?</summary><p>Ada dua pilihan: isi sendiri atau kami bereskan (lihat bagian pilih cara mulainya). Bayarnya sekali, tanpa langganan bulanan.</p></details>
+        <details><summary>Siapa pemilik filenya, dan apakah aman?</summary><p>Kamu. Filenya ada di akun Google-mu, dan kamu yang mengatur siapa saja yang boleh membuka dan mengedit.</p></details>
+        <details><summary>Catatanku masih di nota kertas atau Excel. Bisa?</summary><p>Bisa. Foto nota atau kirim Excel apa adanya, tidak perlu dirapikan dulu.</p></details>
+        <details><summary>Betulkah jadi dalam 24 jam?</summary><p>Ya, dihitung sejak datamu lengkap. Kalau datamu banyak atau berantakan, waktunya kami sebut jelas di awal.</p></details>
+        <details><summary>Kalau ada rumus yang error?</summary><p>Diperbaiki gratis. Itu bagian dari garansi rumus.</p></details>
+        <details><summary>Bisa mulai dari isi sendiri, lalu naik?</summary><p>Bisa. Cukup bayar selisihnya, lalu datamu kami pindahkan dan 4x penyesuaian terbuka.</p></details>
+        <details id="faq-template" hidden><summary>Ada template gratisnya?</summary><p>Ada, template umum untuk mencatat stok, bon, dan order. <a class="link" href="#" data-template>Buka template gratis</a>. Hasil terbaik tetap yang dibuat pas untuk usahamu.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PENUTUP -->
+  <section class="penutup" id="penutup">
+    <div class="wrap">
+      <h2>Kirim foto catatanmu. Lihat contohnya dulu.</h2>
+      <p>Gratis. Kamu bayar hanya kalau cocok.</p>
+      <a class="btn putih" id="cta-akhir" href="#" data-wa="penutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>Kirim foto catatanmu via WhatsApp</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">alurrapi.id · Google Sheets custom untuk usaha dagang</div>
+</footer>
+
+<div class="sticky" id="sticky"><a class="btn" href="#" data-wa="sticky">Kirim foto catatanmu via WhatsApp</a></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ====== PENGATURAN: isi sebelum dipakai sungguhan ====== */
+const CONFIG = {
+  WA_NUMBER: "",     // Format 628xxxxxxxxxx, tanpa + dan spasi. Kosong = WhatsApp terbuka tanpa nomor tujuan.
+  PRICE_DIY: "",     // Harga paket "Isi sendiri", mis. "Rp99.000". Kosong = tampil "Tanya harga lewat WhatsApp".
+  PRICE_DONE: "",    // Harga paket "Kami bereskan", mis. "Rp399.000". Kosong = sama seperti di atas.
+  BUY_URL: "",       // Opsional: link bayar paket "Isi sendiri". Kosong = pesan lewat WhatsApp.
+  TEMPLATE_URL: "",  // Opsional: link template gratis (akhiri dengan /copy). Kosong = pertanyaan template di FAQ disembunyikan.
+  SUBMIT_URL: ""     // Opsional: URL Web App Apps Script untuk mencatat klik (lihat apps-script.gs).
+};
+
+/* ====== DATA CONTOH (karangan) per jenis usaha ====== */
+const ORDER = ["umum","frozen","material","cetak","konveksi"];
+const NICHES = {
+  umum:{pill:"Toko umum", wa:"usaha dagang", title:"Sistem Toko", lab:{stok:"Stok",bon:"Bon",order:"Order"}, bonHead:"Pelanggan",
+    items:[["Nugget 1 kg",6,10],["Semen 50 kg",0,20],["Kaos polos L",120,30],["Kabel 50 m",14,5]],
+    bon:[["Toko Maju",2400000,"bad","Lewat"],["CV Sinar",3900000,"bad","Lewat"],["Bu Rina",480000,"warn","Tempo"]],
+    order:[["Kaos polos L ×50",500000,"Diproses","warn"],["Semen 50 kg ×20",1000000,"Siap kirim","ok"],["Kabel 50 m ×4",150000,"Diproses","warn"]]},
+  frozen:{pill:"Frozen & sembako", wa:"frozen & sembako", title:"Sistem Frozen & Sembako", lab:{stok:"Stok",bon:"Bon Warung",order:"Order"}, bonHead:"Pelanggan",
+    items:[["Nugget 1 kg",6,10],["Sosis 500 g",0,20],["Terigu 25 kg",120,30],["Mentega 1 kg",14,5]],
+    bon:[["Warung Tini",1850000,"bad","Lewat"],["Toko Kue Sari",2300000,"bad","Lewat"],["Resto Mawar",640000,"warn","Tempo"]],
+    order:[["Nugget ×30 dus",600000,"Kirim besok","warn"],["Sosis ×20 dus",800000,"Siap kirim","ok"],["Terigu ×10 sak",0,"Belum DP","bad"]]},
+  material:{pill:"Material & sparepart", wa:"material & sparepart", title:"Sistem Material & Sparepart", lab:{stok:"Stok",bon:"Bon Proyek",order:"Pesanan"}, bonHead:"Proyek",
+    items:[["Semen 50 kg",0,40],["Pipa PVC 3 inci",32,20],["Cat tembok 5 kg",8,10],["Paku 5 cm (kg)",45,10]],
+    bon:[["Ruko Jaya",6200000,"bad","Lewat"],["Pak Hadi",1150000,"bad","Lewat"],["Rumah Bu Dewi",2800000,"warn","Tempo"]],
+    order:[["Semen ×60 sak",3000000,"Siap kirim","ok"],["Pipa PVC ×40",800000,"Diproses","warn"],["Cat ×12",0,"Belum DP","bad"]]},
+  cetak:{pill:"Percetakan & sablon", wa:"percetakan & sablon", title:"Sistem Percetakan & Sablon", lab:{stok:"Bahan",bon:"Bon",order:"Order & DP"}, bonHead:"Pelanggan",
+    items:[["Kertas A3 (rim)",3,5],["Tinta DTF putih",9,4],["Kaos polos L",0,40],["Banner 3 m (roll)",12,3]],
+    bon:[["Kantor Desa",2700000,"bad","Lewat"],["Panitia Reuni",950000,"warn","Tempo"],["Toko Sinar",1400000,"bad","Lewat"]],
+    order:[["Kaos sablon ×100",1500000,"Revisi desain","warn"],["Banner ×4",200000,"Cetak","warn"],["Stiker ×500",0,"Belum DP","bad"]]},
+  konveksi:{pill:"Konveksi & reseller", wa:"konveksi & reseller", title:"Sistem Konveksi & Reseller", lab:{stok:"Stok",bon:"Bon Agen",order:"Keep & PO"}, bonHead:"Agen",
+    items:[["Gamis M",18,20],["Kaos oversize L",0,30],["Pashmina",75,25],["Jilbab instan",22,10]],
+    bon:[["Agen Rina",3200000,"bad","Lewat"],["Agen Dewi",1750000,"bad","Lewat"],["Reseller Sari",520000,"warn","Tempo"]],
+    order:[["Gamis M ×24",1200000,"PO jahit","warn"],["Pashmina ×50",0,"Belum DP","bad"],["Jilbab ×30",450000,"Siap kirim","ok"]]}
+};
+const NICHE_FROM_PARAM = {frozen:"frozen", material:"material", cetak:"cetak", konveksi:"konveksi", lain:"umum", umum:"umum"};
+const ML = {bon:"bon langganan", stok:"stok barang", margin:"harga dan margin", order:"order dan DP", expired:"barang lewat tanggal"};
+const TAB_FROM_M = {bon:"bon", stok:"stok", order:"order", margin:"ringkasan", expired:"stok"};
+
+let q; try{ q = new URLSearchParams(location.search); }catch(e){ q = new URLSearchParams(""); }
+const nParam = (q.get("n")||"").toLowerCase(), m = (q.get("m")||"").toLowerCase(), v = q.get("v")||"";
+
+const $  = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+function send(extra){
+  if(!CONFIG.SUBMIT_URL) return;
+  const body = Object.assign({t:new Date().toISOString(), n:currentNiche, m:m, v:v}, extra);
+  try{
+    fetch(CONFIG.SUBMIT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body),keepalive:true}).catch(function(){});
+  }catch(e){}
+}
+
+/* ====== Niche, tab, dan isi contoh ====== */
+let currentNiche = NICHE_FROM_PARAM[nParam] || "umum";
+let nichePicked = !!NICHE_FROM_PARAM[nParam];
+let currentTab = TAB_FROM_M[m] || "ringkasan";
+
+function rp(n){ return "Rp" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."); }
+function tag(t,x){ return '<span class="tag '+t+'">'+x+'</span>'; }
+function stat(it){ return it[1]===0 ? ["bad","Habis"] : (it[1]<it[2] ? ["warn","Menipis"] : ["ok","Aman"]); }
+function table(head, rows){
+  return '<table class="t"><thead><tr>'+head.map(function(h){return '<th>'+h+'</th>';}).join("")+'</tr></thead><tbody>'+rows.join("")+'</tbody></table>';
+}
+
+function renderMock(){
+  const d = NICHES[currentNiche];
+  $("#mock-title").textContent = d.title + " · Google Sheets";
+
+  const names = {ringkasan:"Ringkasan", stok:d.lab.stok, bon:d.lab.bon, order:d.lab.order};
+  $$(".mock-tabs [data-tab]").forEach(function(b){ b.textContent = names[b.getAttribute("data-tab")]; });
+
+  const restock = d.items.filter(function(i){return i[1]<i[2];}).length;
+  const lewat = d.bon.filter(function(b){return b[2]==="bad";}).length;
+  const tanpaDP = d.order.filter(function(o){return o[1]===0;}).length;
+  const hari = [];
+  const fb = d.bon.find(function(b){return b[2]==="bad";});
+  if(fb) hari.push('<li><span>Tagih '+fb[0]+' · '+rp(fb[1])+'</span>'+tag("ok","Tagih")+'</li>');
+  const fi = d.items.find(function(i){return i[1]===0;}) || d.items.find(function(i){return i[1]<i[2];});
+  if(fi) hari.push('<li><span>Restock '+fi[0]+'</span>'+tag("warn","Restock")+'</li>');
+  const fo = d.order.find(function(o){return o[1]===0;});
+  if(fo) hari.push('<li><span>Minta DP: '+fo[0]+'</span>'+tag("bad","Minta DP")+'</li>');
+  if(!hari.length) hari.push('<li><span>Semua aman hari ini</span>'+tag("ok","Aman")+'</li>');
+
+  $('[data-panel="ringkasan"]').innerHTML =
+    '<div class="kpi"><div class="w"><b>'+restock+'</b>barang perlu restock</div><div class="b"><b>'+lewat+'</b>bon lewat batas</div><div class="'+(tanpaDP?'w':'g')+'"><b>'+tanpaDP+'</b>order tanpa DP</div></div>'+
+    '<div class="hari"><h4>Hari ini perlu dikerjakan</h4><ul>'+hari.join("")+'</ul></div>';
+  $('[data-panel="stok"]').innerHTML = table(["Barang","Stok","Status"], d.items.map(function(i){
+    const s = stat(i); return '<tr><td>'+i[0]+'</td><td>'+i[1]+'</td><td>'+tag(s[0],s[1])+'</td></tr>';
+  }));
+  $('[data-panel="bon"]').innerHTML = table([d.bonHead,"Sisa","Status","Aksi"], d.bon.map(function(b){
+    return '<tr><td>'+b[0]+'</td><td>'+rp(b[1])+'</td><td>'+tag(b[2],b[3])+'</td><td>'+(b[2]==="bad"?tag("ok","Tagih"):'<span style="color:#8A978F">–</span>')+'</td></tr>';
+  }));
+  $('[data-panel="order"]').innerHTML = table(["Pesanan","DP","Status"], d.order.map(function(o){
+    return '<tr><td>'+o[0]+'</td><td>'+rp(o[1])+'</td><td>'+tag(o[3],o[2])+'</td></tr>';
+  }));
+}
+
+function setTab(k){
+  currentTab = k;
+  $$(".mock-tabs [data-tab]").forEach(function(b){ b.setAttribute("aria-selected", String(b.getAttribute("data-tab")===k)); });
+  $$(".mock-panel").forEach(function(p){
+    const on = p.getAttribute("data-panel")===k;
+    p.classList.toggle("on", on); p.setAttribute("aria-hidden", String(!on));
+  });
+}
+
+function setNiche(k, fromClick){
+  currentNiche = k;
+  if(fromClick) nichePicked = true;
+  $$("#niche button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-k")===k)); });
+  renderMock();
+  setTab(currentTab);
+  applyLinks();
+}
+
+const nicheBox = $("#niche");
+ORDER.forEach(function(k){
+  const b = document.createElement("button");
+  b.type = "button"; b.setAttribute("data-k", k); b.textContent = NICHES[k].pill; b.setAttribute("aria-pressed","false");
+  b.addEventListener("click", function(){ setNiche(k, true); send({type:"event", event:"niche_pick", info:k}); });
+  nicheBox.appendChild(b);
+});
+$$(".mock-tabs [data-tab]").forEach(function(btn){
+  btn.addEventListener("click", function(){ setTab(btn.getAttribute("data-tab")); });
+});
+if(ML[m]){
+  const info = $("#mock-info");
+  info.textContent = "Kamu datang dari video soal " + ML[m] + ". Ini contoh tampilannya.";
+  info.hidden = false;
+}
+
+/* ====== Link WhatsApp ====== */
+const MSG = {
+  kirim:'Halo, aku mau kirim foto catatan usahaku untuk dibuatkan contoh tampilan Google Sheets.',
+  konsul:'Halo, aku mau konsultasi 15 menit soal Google Sheets untuk usahaku.',
+  diy:'Halo, aku tertarik paket Google Sheets "isi sendiri".',
+  done:'Halo, aku tertarik paket "kami bereskan". Aku mau kirim foto catatan usahaku untuk dibuatkan contoh tampilannya dulu.'
+};
+function waHref(key){
+  let t = MSG[key] || MSG.kirim;
+  if(nichePicked) t += " Usahaku: " + NICHES[currentNiche].wa + ".";
+  if(ML[m]) t += " Aku tahu dari video soal " + ML[m] + ".";
+  return "https://wa.me/" + CONFIG.WA_NUMBER + "?text=" + encodeURIComponent(t);
+}
+function applyLinks(){
+  $$("[data-wa]").forEach(function(a){ a.href = waHref(a.getAttribute("data-msg")||"kirim"); });
+  $$("[data-paket]").forEach(function(a){
+    const j = a.getAttribute("data-paket");
+    a.href = (j==="diy" && CONFIG.BUY_URL) ? CONFIG.BUY_URL : waHref(j);
+  });
+}
+$$("[data-wa]").forEach(function(a){
+  a.target = "_blank"; a.rel = "noopener";
+  a.addEventListener("click", function(){ send({type:"event", event:"wa_click", info:a.getAttribute("data-wa")}); });
+});
+$$("[data-paket]").forEach(function(a){
+  a.target = "_blank"; a.rel = "noopener";
+  a.addEventListener("click", function(){ send({type:"event", event:"paket_click", info:a.getAttribute("data-paket")}); });
+});
+
+/* harga paket */
+$$("[data-harga]").forEach(function(el){
+  const val = el.getAttribute("data-harga")==="diy" ? CONFIG.PRICE_DIY : CONFIG.PRICE_DONE;
+  if(val){
+    el.textContent = val + " ";
+    const sm = document.createElement("small"); sm.textContent = "sekali bayar"; el.appendChild(sm);
+  } else { el.textContent = "Tanya harga lewat WhatsApp"; el.classList.add("tanya"); }
+});
+
+/* template gratis: hanya tampil di FAQ kalau link diisi */
+if(CONFIG.TEMPLATE_URL){
+  $("#faq-template").hidden = false;
+  $$("[data-template]").forEach(function(a){
+    a.href = CONFIG.TEMPLATE_URL; a.target = "_blank"; a.rel = "noopener";
+    a.addEventListener("click", function(){ send({type:"event", event:"template_click"}); });
+  });
+}
+
+/* bar tempel: muncul di HP saat kedua tombol utama tidak terlihat */
+const vis = {hero:true, akhir:false};
+function upd(){ $("#sticky").classList.toggle("show", !vis.hero && !vis.akhir); }
+if("IntersectionObserver" in window){
+  const io = new IntersectionObserver(function(es){
+    es.forEach(function(en){ vis[en.target.getAttribute("data-k")] = en.isIntersecting; });
+    upd();
+  });
+  const a = $("#cta-hero"), b = $("#cta-akhir");
+  a.setAttribute("data-k","hero"); b.setAttribute("data-k","akhir");
+  io.observe(a); io.observe(b);
+}
+
+setNiche(currentNiche, false);
+send({type:"event", event:"view"});
+})();
+</script>
+</body>
+</html>
